@@ -1,6 +1,6 @@
 from django.db import models
 import calendar
-import datetime
+from _datetime import datetime, timedelta
 
 
 class Event(models.Model):
@@ -18,16 +18,16 @@ class Doctor(models.Model):
     end_of_work = models.TimeField()
     visit_time = models.TimeField()
 
-    def check_free_slots(self, start_work, end_work, visit_time):
-        slots = []
-        slot_start_time = Doctor.start_of_work
-        while slot_start_time < Doctor.end_of_work:
-            slot_end_point = slot_start_time + visit_time #zmienić na sztywną ilość minut
-            slot = {'slot_start_point': slot_start_time, 'slot_end_point': slot_end_point}
-            slot_start_time += visit_time
-            if slot in booked_slots: #dopisać listę zarezerwowanych terminów
-                continue
-            slots.append(slot)
+    # def check_free_slots(self, start_work, end_work, visit_time):
+    #     slots = []
+    #     slot_start_time = Doctor.start_of_work
+    #     while slot_start_time < Doctor.end_of_work:
+    #         slot_end_point = slot_start_time.timedelta
+    #         slot = {'slot_start_point': slot_start_time, 'slot_end_point': slot_end_point}
+    #         slot_start_time += visit_time
+    #         if slot in booked_slots: #dopisać listę zarezerwowanych terminów
+    #             continue
+    #         slots.append(slot)
 
 
 class Patient(models.Model):
