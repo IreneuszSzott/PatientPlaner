@@ -1,6 +1,5 @@
 from django.db import models
-import calendar
-from _datetime import datetime, timedelta
+from django.urls import reverse
 
 
 class Event(models.Model):
@@ -9,14 +8,18 @@ class Event(models.Model):
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
 
+    @property
+    def get_html_url(self):
+        url = reverse('doctor_calendar:event_edit', args=(self.id,))
+        return f'<a href="{url}"> {self.title} </a>'
 
 
-class Doctor(models.Model):
-    doctor_name = models.CharField(max_length=40)
-    registration_date = models.DateTimeField("date registered")
-    start_of_work = models.TimeField()
-    end_of_work = models.TimeField()
-    visit_time = models.TimeField()
+# class Doctor(models.Model):
+#     doctor_name = models.CharField(max_length=40)
+#     registration_date = models.DateTimeField("date registered")
+#     start_of_work = models.TimeField()
+#     end_of_work = models.TimeField()
+#     visit_time = models.TimeField()
 
     # def check_free_slots(self, start_work, end_work, visit_time):
     #     slots = []
@@ -30,12 +33,12 @@ class Doctor(models.Model):
     #         slots.append(slot)
 
 
-class Patient(models.Model):
-    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
-    patient_name = models.CharField(max_length=30)
-    registration_date = models.DateTimeField("date registered")
-    waiting_status = models.BooleanField()
-
-    @property
-    def is_waiting(self):
-        return bool(self.waiting_status)
+# class Patient(models.Model):
+#     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
+#     patient_name = models.CharField(max_length=30)
+#     registration_date = models.DateTimeField("date registered")
+#     waiting_status = models.BooleanField()
+#
+#     @property
+#     def is_waiting(self):
+#         return bool(self.waiting_status)
