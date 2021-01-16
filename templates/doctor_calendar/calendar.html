@@ -5,10 +5,9 @@
     <title>Title</title>
 </head>
 <body>
-{'% extends 'cal/base.html' %}
-
-{'% block content %}
-{'{ calendar }}
-{'% endblock %}
+{% extends 'doctor_calendar/base.html' %}
+{% block content %}
+{{ calendar }}
+{% endblock %}
 </body>
 </html>

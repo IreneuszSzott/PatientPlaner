@@ -1,10 +1,9 @@
 from datetime import datetime, date
-from django.shortcuts import render
 from django.http import HttpResponse
 from django.views import generic
 from django.utils.safestring import mark_safe
 
-from .models import *
+from doctor_calendar.models import *
 from .utils import Calendar
 
 
@@ -14,7 +13,7 @@ def index(request):
 
 class CalendarView(generic.ListView):
     model = Event
-    template_name = 'cal/calendar.html'
+    template_name = 'doctor_calendar/calendar.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -35,4 +34,9 @@ def get_date(req_day):
     if req_day:
         year, month = (int(x) for x in req_day.split('-'))
         return date(year, month, day=1)
-    return datetime.today()
+    return datetime.datetime.today()
+
+
+def index(request):
+    return HttpResponse('hello')
+

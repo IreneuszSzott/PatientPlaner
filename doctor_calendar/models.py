@@ -1,5 +1,6 @@
 from django.db import models
-from django.contrib import admin
+import calendar
+import datetime
 
 
 class Event(models.Model):
@@ -9,6 +10,32 @@ class Event(models.Model):
     end_time = models.DateTimeField()
 
 
-class EventAdmin(admin.ModelAdmin):
-    list_display = ['day', 'start_time', 'end_time']
 
+class Doctor(models.Model):
+    doctor_name = models.CharField(max_length=40)
+    registration_date = models.DateTimeField("date registered")
+    start_of_work = models.TimeField()
+    end_of_work = models.TimeField()
+    visit_time = models.TimeField()
+
+    def check_free_slots(self, start_work, end_work, visit_time):
+        slots = []
+        slot_start_time = Doctor.start_of_work
+        while slot_start_time < Doctor.end_of_work:
+            slot_end_point = slot_start_time + visit_time #zmienić na sztywną ilość minut
+            slot = {'slot_start_point': slot_start_time, 'slot_end_point': slot_end_point}
+            slot_start_time += visit_time
+            if slot in booked_slots: #dopisać listę zarezerwowanych terminów
+                continue
+            slots.append(slot)
+
+
+class Patient(models.Model):
+    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
+    patient_name = models.CharField(max_length=30)
+    registration_date = models.DateTimeField("date registered")
+    waiting_status = models.BooleanField()
+
+    @property
+    def is_waiting(self):
+        return bool(self.waiting_status)
