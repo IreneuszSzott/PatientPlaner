@@ -121,8 +121,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATIC_DIRS = [os.path.join(BASE_DIR,'static'),
+]
+
 AUTH_USER_MODEL = 'users.User'
 
-LOGIN_REDIRECT_URL = '/templates/doctor_calendar/calendar'
+LOGIN_REDIRECT_URL = 'home'
 
 LOGOUT_REDIRECT_URL = 'home'

@@ -11,7 +11,7 @@ from .forms import EventForm
 
 
 def index(request):
-    return HttpResponse('hello')
+    return render(request,'doctor_calendar/index.html')
 
 
 class CalendarView(generic.ListView):
@@ -34,10 +34,6 @@ def get_date(req_day):
         year, month = (int(x) for x in req_day.split('-'))
         return date(year, month, day=1)
     return datetime.today()
-
-
-def index(request):
-    return HttpResponse('hello')
 
 
 def prev_month(d):
