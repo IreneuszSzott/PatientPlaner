@@ -126,6 +126,6 @@ STATIC_DIRS = [os.path.join(BASE_DIR,'static'),
 
 AUTH_USER_MODEL = 'users.User'
 
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'calendar'
 
-LOGOUT_REDIRECT_URL = 'home'
+#LOGOUT_REDIRECT_URL = 'home'
